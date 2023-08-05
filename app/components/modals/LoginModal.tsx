@@ -17,8 +17,9 @@ import Button from '../Button';
 import { useRouter } from 'next/navigation';
 
 export default function LoginModal() {
-  const router = useRouter()
-;  const registerModal = useRegisterModal();
+  const router = useRouter();
+
+  const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -39,21 +40,25 @@ export default function LoginModal() {
     signIn('credentials', {
       ...data,
       redirect: false,
-    })
-      .then((callback) => {
-        setIsLoading(false);
+    }).then((callback) => {
+      setIsLoading(false);
 
-        if(callback?.ok) {
-          toast.success('Logged in');
-          router.refresh();
-          loginModal.onClose();
-        }
+      if (callback?.ok) {
+        toast.success('Logged in');
+        router.refresh();
+        loginModal.onClose();
+      }
 
-        if (callback?.error) {
-          toast.error(callback.error);
-        }
-      })
+      if (callback?.error) {
+        toast.error(callback.error);
+      }
+    });
   };
+
+  const toggle = useCallback(() => {
+    loginModal.onClose();
+    registerModal.onOpen();
+  }, [loginModal, registerModal]);
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
@@ -95,12 +100,12 @@ export default function LoginModal() {
       />
       <div className="text-neutral-500 text-center mt-4 font-light">
         <div className="justify-center flex flex-row items-center gap-2">
-          <div>Already have an account?</div>
+          <div>First time using Airbnb?</div>
           <div
             className="text-neutral-800 cursor-pointer hover:underline"
-            onClick={registerModal.onClose}
+            onClick={toggle}
           >
-            Log in
+            Create an account
           </div>
         </div>
       </div>
