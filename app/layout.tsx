@@ -4,6 +4,7 @@ import Navbar from './components/navbar/Navbar';
 import Modal from './components/modals/Modal';
 import RegisterModal from './components/modals/RegisterModal';
 import LoginModal from './components/modals/LoginModal';
+import SearchModal from './components/modals/SearchModal';
 import RentModal from './components/modals/RentModal';
 import ClientOnly from './components/ClientOnly';
 import ToasterProvider from './providers/ToasterProvider';
@@ -30,6 +31,7 @@ export default async function RootLayout({
       <body className={font.className}>
         <ClientOnly>
           <ToasterProvider />
+          <SearchModal />
           <RentModal />
           <LoginModal />
           <RegisterModal />
