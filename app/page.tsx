@@ -6,11 +6,11 @@ import EmptyState from './components/EmptyState';
 import ListingCard from './components/listings/ListingCard';
 
 interface HomeProps {
-  searchParams: IListingsParams;
+  searchParams: Promise<IListingsParams>;
 }
 
 const Home = async ({ searchParams }: HomeProps) => {
-  const listings = await getListings(searchParams);
+  const listings = await getListings(await searchParams);
   const currentUser = await getCurrentUser();
 
   if (listings.length === 0) {
